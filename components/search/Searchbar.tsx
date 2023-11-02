@@ -9,18 +9,18 @@
  * no JavaScript is shipped to the browser!
  */
 
-import ProductCard from "$store/components/product/ProductCard.tsx";
-import Button from "$store/components/ui/Button.tsx";
-import Icon from "$store/components/ui/Icon.tsx";
-import Slider from "$store/components/ui/Slider.tsx";
-import { sendEvent } from "$store/sdk/analytics.tsx";
-import { useId } from "$store/sdk/useId.ts";
-import { useSuggestions } from "$store/sdk/useSuggestions.ts";
-import { useUI } from "$store/sdk/useUI.ts";
-import { Suggestion } from "apps/commerce/types.ts";
-import { Resolved } from "deco/engine/core/resolver.ts";
-import { useEffect, useRef } from "preact/compat";
-import type { Platform } from "$store/apps/site.ts";
+import ProductCard from '$store/components/product/ProductCard.tsx';
+import Button from '$store/components/ui/Button.tsx';
+import Icon from '$store/components/ui/Icon.tsx';
+import Slider from '$store/components/ui/Slider.tsx';
+import { sendEvent } from '$store/sdk/analytics.tsx';
+import { useId } from '$store/sdk/useId.ts';
+import { useSuggestions } from '$store/sdk/useSuggestions.ts';
+import { useUI } from '$store/sdk/useUI.ts';
+import { Suggestion } from 'apps/commerce/types.ts';
+import { Resolved } from 'deco/engine/core/resolver.ts';
+import { useEffect, useRef } from 'preact/compat';
+import type { Platform } from '$store/apps/site.ts';
 
 // Editable props
 export interface Props {
@@ -53,9 +53,9 @@ export interface Props {
 }
 
 function Searchbar({
-  placeholder = "What are you looking for?",
-  action = "/s",
-  name = "q",
+  placeholder = 'Pesquisar',
+  action = '/s',
+  name = 'q',
   loader,
   platform,
 }: Props) {
@@ -75,32 +75,21 @@ function Searchbar({
 
   return (
     <div
-      class="w-full grid gap-8 px-4 py-6 overflow-y-hidden"
-      style={{ gridTemplateRows: "min-content auto" }}
+      class="w-4/12 grid gap-8 px-4 py-6 overflow-y-hidden"
+      // style={{ gridTemplateRows: 'min-content auto' }}
     >
       <form id={id} action={action} class="join">
-        <Button
-          type="submit"
-          class="join-item btn-square"
-          aria-label="Search"
-          for={id}
-          tabIndex={-1}
-        >
-          {loading.value
-            ? <span class="loading loading-spinner loading-xs" />
-            : <Icon id="MagnifyingGlass" size={24} strokeWidth={0.01} />}
-        </Button>
         <input
           ref={searchInputRef}
           id="search-input"
-          class="input input-bordered join-item flex-grow"
+          class="input input-bordered join-item border-primary w-full"
           name={name}
           onInput={(e) => {
             const value = e.currentTarget.value;
 
             if (value) {
               sendEvent({
-                name: "search",
+                name: 'search',
                 params: { search_term: value },
               });
             }
@@ -113,24 +102,26 @@ function Searchbar({
           autocomplete="off"
         />
         <Button
-          type="button"
-          class="join-item btn-ghost btn-square hidden sm:inline-flex"
-          onClick={() => displaySearchPopup.value = false}
+          type="submit"
+          class="join-item btn-square bg-primary text-white"
+          aria-label="Search"
+          for={id}
+          tabIndex={-1}
         >
-          <Icon id="XMark" size={24} strokeWidth={2} />
+          {loading.value ? (
+            <span class="loading loading-spinner loading-xs" />
+          ) : (
+            <Icon id="MagnifyingGlass" size={24} strokeWidth={0.01} />
+          )}
         </Button>
       </form>
 
       <div
-        class={`overflow-y-scroll ${!hasProducts && !hasTerms ? "hidden" : ""}`}
+        class={`overflow-y-scroll ${!hasProducts && !hasTerms ? 'hidden' : ''}`}
       >
         <div class="gap-4 grid grid-cols-1 sm:grid-rows-1 sm:grid-cols-[150px_1fr]">
           <div class="flex flex-col gap-6">
-            <span
-              class="font-medium text-xl"
-              role="heading"
-              aria-level={3}
-            >
+            <span class="font-medium text-xl" role="heading" aria-level={3}>
               Sugestões
             </span>
             <ul id="search-suggestion" class="flex flex-col gap-6">
@@ -138,11 +129,7 @@ function Searchbar({
                 <li>
                   <a href={`/s?q=${term}`} class="flex gap-4 items-center">
                     <span>
-                      <Icon
-                        id="MagnifyingGlass"
-                        size={24}
-                        strokeWidth={0.01}
-                      />
+                      <Icon id="MagnifyingGlass" size={24} strokeWidth={0.01} />
                     </span>
                     <span dangerouslySetInnerHTML={{ __html: term }} />
                   </a>
@@ -151,11 +138,7 @@ function Searchbar({
             </ul>
           </div>
           <div class="flex flex-col pt-6 md:pt-0 gap-6 overflow-x-hidden">
-            <span
-              class="font-medium text-xl"
-              role="heading"
-              aria-level={3}
-            >
+            <span class="font-medium text-xl" role="heading" aria-level={3}>
               Produtos sugeridos
             </span>
             <Slider class="carousel">
