@@ -75,7 +75,7 @@ function Searchbar({
 
   return (
     <div
-      class="w-4/12 grid gap-8 px-4 py-6 overflow-y-hidden"
+      class="w-2/3 grid gap-8 px-4 py-6 overflow-y-hidden"
       // style={{ gridTemplateRows: 'min-content auto' }}
     >
       <form id={id} action={action} class="join">
